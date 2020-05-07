@@ -13,6 +13,7 @@ import {
   ComponentWithAs,
 } from '@fluentui/react-bindings';
 import { compose } from '@fluentui/react-compose';
+import { Ref } from '@fluentui/react-component-ref';
 import * as customPropTypes from '@fluentui/react-proptypes';
 import { mergeComponentVariables } from '@fluentui/styles';
 import * as _ from 'lodash';
@@ -162,13 +163,7 @@ const ToolbarMenu = compose<'ul', ToolbarMenuProps, ToolbarMenuStylesProps, {}, 
     const unhandledProps = useUnhandledProps(composeOptions.handledProps, props);
 
     const element = getA11yProps.unstable_wrapWithFocusZone(
-      <ElementType
-        {...getA11yProps('root', {
-          ...unhandledProps,
-          className: classes.root,
-          ref,
-        })}
-      >
+      <ElementType {...getA11yProps('root', { ...unhandledProps, className: classes.root })}>
         <ToolbarVariablesProvider value={mergedVariables}>
           {childrenExist(children) ? children : renderItems()}
         </ToolbarVariablesProvider>
@@ -176,7 +171,8 @@ const ToolbarMenu = compose<'ul', ToolbarMenuProps, ToolbarMenuStylesProps, {}, 
     );
     setEnd();
 
-    return element;
+    // TODO: As ElementType is wrapped with FocusZone which doesn't ref forwarding we have to use Ref
+    return ref ? <Ref innerRef={(ref as unknown) as React.Ref<HTMLElement>}>{element}</Ref> : element;
   },
   {
     displayName: 'ToolbarMenu',
