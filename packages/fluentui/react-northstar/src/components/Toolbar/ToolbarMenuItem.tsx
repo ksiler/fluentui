@@ -29,6 +29,7 @@ import { ThemeContext } from 'react-fela';
 import { GetRefs, NodeRef, Unstable_NestingAuto } from '@fluentui/react-component-nesting-registry';
 
 import {
+  createShorthand,
   ChildrenComponentProps,
   commonPropTypes,
   ContentComponentProps,
@@ -51,6 +52,7 @@ import { getPopperPropsFromShorthand, Popper, PopperShorthandProps } from '../..
 import Box, { BoxProps } from '../Box/Box';
 import Popup, { PopupProps } from '../Popup/Popup';
 import ToolbarMenu, { ToolbarMenuProps, ToolbarMenuItemShorthandKinds } from './ToolbarMenu';
+import ToolbarMenuItemIcon, { ToolbarMenuItemIconProps } from './ToolbarMenuItemIcon';
 import { ToolbarVariablesContext, ToolbarVariablesProvider } from './toolbarVariablesContext';
 
 export interface ToolbarMenuItemProps extends UIComponentProps, ChildrenComponentProps, ContentComponentProps {
@@ -69,7 +71,7 @@ export interface ToolbarMenuItemProps extends UIComponentProps, ChildrenComponen
   disabled?: boolean;
 
   /** Name or shorthand for Toolbar Item Icon */
-  icon?: ShorthandValue<BoxProps>;
+  icon?: ShorthandValue<ToolbarMenuItemIconProps>;
 
   /** ToolbarMenuItem index inside ToolbarMenu. */
   index?: number;
@@ -172,6 +174,7 @@ const ToolbarMenuItem = compose<'button', ToolbarMenuItemProps, ToolbarMenuItemS
     const mergedVariables = mergeComponentVariables(parentVariables, variables);
 
     const ElementType = getElementType(props);
+    const slotProps = composeOptions.resolveSlotProps<ToolbarMenuItemProps>(props);
     const unhandledProps = useUnhandledProps(composeOptions.handledProps, props);
 
     const getA11yProps = useAccessibility(props.accessibility, {
@@ -335,11 +338,7 @@ const ToolbarMenuItem = compose<'button', ToolbarMenuItemProps, ToolbarMenuItemS
           children
         ) : (
           <>
-            {Box.create(icon, {
-              defaultProps: () => ({
-                styles: resolvedStyles.icon,
-              }),
-            })}
+            {createShorthand(composeOptions.slots.icon, icon, { defaultProps: () => slotProps.icon })}
             {content}
             {active &&
               Box.create(activeIndicator, {
@@ -449,6 +448,10 @@ const ToolbarMenuItem = compose<'button', ToolbarMenuItemProps, ToolbarMenuItemS
     className: toolbarMenuItemClassName,
     displayName: 'ToolbarMenuItem',
 
+    slots: {
+      icon: ToolbarMenuItemIcon,
+    },
+
     handledProps: [
       'accessibility',
       'as',
@@ -507,9 +510,9 @@ ToolbarMenuItem.propTypes = {
 ToolbarMenuItem.defaultProps = {
   as: 'button',
   accessibility: toolbarMenuItemBehavior,
-  wrapper: { as: 'li' },
   activeIndicator: {},
   submenuIndicator: {},
+  wrapper: { as: 'li' },
 };
 
 ToolbarMenuItem.create = createShorthandFactory({
