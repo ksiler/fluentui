@@ -152,6 +152,7 @@ const Toolbar = compose<'div', ToolbarProps, ToolbarStylesProps, {}, {}>(
     });
     const { classes } = useStyles<ToolbarStylesProps>(composeOptions.displayName, {
       className: toolbarClassName,
+      composeOptions,
       mapPropsToInlineStyles: () => ({
         className,
         design,
@@ -159,6 +160,7 @@ const Toolbar = compose<'div', ToolbarProps, ToolbarStylesProps, {}, {}>(
         variables,
       }),
       rtl: context.rtl,
+      unstable_props: props,
     });
 
     const ElementType = getElementType(props);

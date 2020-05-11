@@ -79,6 +79,7 @@ const ToolbarCustomItem = compose<'div', ToolbarCustomItemProps, ToolbarCustomIt
     });
     const { classes } = useStyles<ToolbarCustomItemStylesProps>(composeOptions.displayName, {
       className: composeOptions.className,
+      composeOptions,
       mapPropsToStyles: () => ({ fitted }),
       mapPropsToInlineStyles: () => ({
         className,
@@ -87,6 +88,7 @@ const ToolbarCustomItem = compose<'div', ToolbarCustomItemProps, ToolbarCustomIt
         variables: mergeComponentVariables(parentVariables, variables),
       }),
       rtl: context.rtl,
+      unstable_props: props,
     });
 
     const ElementType = getElementType(props);
