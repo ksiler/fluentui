@@ -23,7 +23,7 @@ const ToolbarMenuItemIcon = compose<
   displayName: 'ToolbarMenuItemIcon',
 
   mapPropsToStylesProps: props => ({
-    hasContent: (props as any).content /* TODO: compose should include parentProps */,
+    hasContent: !!(props as any).content /* TODO: compose should include parentProps */,
   }),
   overrideStyles: true,
 }) as ComponentWithAs<'span', ToolbarMenuItemIconProps> & {

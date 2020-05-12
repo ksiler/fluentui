@@ -40,13 +40,7 @@ import {
   ShorthandFactory,
   ShorthandConfig,
 } from '../../utils';
-import {
-  ComponentEventHandler,
-  ShorthandValue,
-  withSafeTypeForAs,
-  ShorthandCollection,
-  ProviderContextPrepared,
-} from '../../types';
+import { ComponentEventHandler, ShorthandValue, ShorthandCollection, ProviderContextPrepared } from '../../types';
 import { getPopperPropsFromShorthand, Popper, PopperShorthandProps } from '../../utils/positioner';
 
 import Box, { BoxProps } from '../Box/Box';
@@ -137,6 +131,9 @@ export const toolbarMenuItemSlotClassNames: ToolbarMenuItemSlotClassNames = {
   submenuIndicator: `${toolbarMenuItemClassName}__submenuIndicator`,
 };
 
+/**
+ * A ToolbarMenuItem renders ToolbarMenu item as button.
+ */
 const ToolbarMenuItem = compose<'button', ToolbarMenuItemProps, ToolbarMenuItemStylesProps, {}, {}>(
   (props, ref, composeOptions) => {
     const context: ProviderContextPrepared = React.useContext(ThemeContext);
@@ -520,7 +517,4 @@ ToolbarMenuItem.create = createShorthandFactory({
   mappedProp: 'content',
 });
 
-/**
- * A ToolbarMenuItem renders ToolbarMenu item as button.
- */
-export default withSafeTypeForAs<typeof ToolbarMenuItem, ToolbarMenuItemProps, 'button'>(ToolbarMenuItem);
+export default ToolbarMenuItem;
