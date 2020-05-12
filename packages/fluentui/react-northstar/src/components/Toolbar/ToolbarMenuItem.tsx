@@ -140,7 +140,7 @@ export const toolbarMenuItemSlotClassNames: ToolbarMenuItemSlotClassNames = {
 const ToolbarMenuItem = compose<'button', ToolbarMenuItemProps, ToolbarMenuItemStylesProps, {}, {}>(
   (props, ref, composeOptions) => {
     const context: ProviderContextPrepared = React.useContext(ThemeContext);
-    const { setStart, setEnd } = useTelemetry(ToolbarMenuItem.displayName, context.telemetry);
+    const { setStart, setEnd } = useTelemetry(composeOptions.displayName, context.telemetry);
     setStart();
 
     const {
@@ -206,7 +206,7 @@ const ToolbarMenuItem = compose<'button', ToolbarMenuItemProps, ToolbarMenuItemS
     });
 
     const { classes, styles: resolvedStyles } = useStyles<ToolbarMenuItemStylesProps>(composeOptions.displayName, {
-      className: toolbarMenuItemClassName,
+      className: composeOptions.className,
       composeOptions,
       mapPropsToStyles: () => ({
         disabled,
