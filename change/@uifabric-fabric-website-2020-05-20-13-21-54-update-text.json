@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Update text documentation for fontSize",
+  "packageName": "@uifabric/fabric-website",
+  "email": "krsiler@microsoft.com",
+  "dependentChangeType": "patch",
+  "date": "2020-05-20T20:21:54.633Z"
+}
