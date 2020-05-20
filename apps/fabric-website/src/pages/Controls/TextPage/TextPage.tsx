@@ -9,7 +9,7 @@ import { ApiKind } from 'office-ui-fabric-react/lib/common/DocPage.types';
 
 const baseUrl = 'https://github.com/microsoft/fluentui/tree/master/apps/fabric-website/src/pages/Controls/TextPage/';
 
-export const TextPage: React.FunctionComponent<IControlsPageProps> = props => {
+export const TextPage: React.FunctionComponent<IControlsPageProps> = (props) => {
   const { platform } = props;
   return (
     <ControlsAreaPage
@@ -131,7 +131,7 @@ function _otherSections(platform: Platforms): IPageSectionProps<Platforms>[] {
                         ],
                         kind: 'property' as 'property',
                         description:
-                          'Font size of the Text in typographic points. Can either use a number, or use a predefined font size from IFontSizes.\n',
+                          'Font size of the Text in CSS pixels. Can either use a number, or use a predefined font size from IFontSizes.\n',
                         deprecated: false,
                       },
                       {
